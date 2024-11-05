@@ -1,46 +1,44 @@
 {
-    "name": "Harness Open Source Development",
-    "image": "golang:1.20",
-    "features": {
-      "ghcr.io/devcontainers/features/node:1": {
-        "version": "lts"
+  "name": "Harness Open Source Development",
+  "image": "golang:1.20",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    }
+  },
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "/bin/bash"
+  },
+  "postCreateCommand": "make dep && make tools && pushd web && yarn install && popd",
+  "extensions": [
+    "ms-vscode.go",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint"
+  ],
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "go.gopath": "/go",
+        "go.goroot": "/usr/local/go",
+        "go.toolsGopath": "/go/bin",
+        "go.useLanguageServer": true,
+        "editor.formatOnSave": true
       },
-      "ghcr.io/devcontainers-contrib/features/homebrew:1": {}
-    },
-    "settings": {
-      "terminal.integrated.defaultProfile.linux": "/bin/bash"
-    },
-    "postCreateCommand": "make dep && make tools && pushd web && yarn install && popd",
-    "extensions": [
-      "ms-vscode.go",
-      "esbenp.prettier-vscode",
-      "dbaeumer.vscode-eslint"
-    ],
-    "customizations": {
-      "vscode": {
-        "settings": {
-          "go.gopath": "/go",
-          "go.goroot": "/usr/local/go",
-          "go.toolsGopath": "/go/bin",
-          "go.useLanguageServer": true,
-          "editor.formatOnSave": true
-        },
-        "extensions": [
-          "golang.go",
-          "dbaeumer.vscode-eslint",
-          "esbenp.prettier-vscode"
-        ]
-      }
-    },
-    "containerEnv": {
-      "GOBIN": "/go/bin",
-      "PATH": "${containerEnv:PATH}:/go/bin"
-    },
-    "mounts": [
-      "source=${localWorkspaceFolder},target=/workspace,type=bind"
-    ],
-    "runArgs": ["--privileged"],
-    "initializeCommand": "brew install protobuf && curl -s https://raw.githubusercontent.com/Homebrew/homebrew-core/9de8de7a533609ebfded833480c1f7c05a3448cb/Formula/protobuf.rb > /tmp/protobuf.rb && brew unlink protobuf && brew install /tmp/protobuf.rb",
-    "postStartCommand": "go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28.1 && go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2.0"
-  }
-  
+      "extensions": [
+        "golang.go",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  },
+  "containerEnv": {
+    "GOBIN": "/go/bin",
+    "PATH": "${containerEnv:PATH}:/go/bin:/home/linuxbrew/.linuxbrew/bin"
+  },
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/workspace,type=bind"
+  ],
+  "runArgs": ["--privileged"],
+  "initializeCommand": "/bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\" && echo 'eval \\\"$($(brew --prefix)/bin/brew shellenv)\\\"' >> ~/.bashrc && eval \"$($(brew --prefix)/bin/brew shellenv)\"",
+  "postStartCommand": "brew install protobuf@3.21 && go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28.1 && go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2.0"
+}
