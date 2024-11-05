@@ -33,12 +33,12 @@
   },
   "containerEnv": {
     "GOBIN": "/go/bin",
-    "PATH": "${containerEnv:PATH}:/go/bin:/home/linuxbrew/.linuxbrew/bin"
+    "PATH": "${containerEnv:PATH}:/go/bin"
   },
   "mounts": [
     "source=${localWorkspaceFolder},target=/workspace,type=bind"
   ],
   "runArgs": ["--privileged"],
-  "initializeCommand": "/bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\" && echo 'eval \\\"$($(brew --prefix)/bin/brew shellenv)\\\"' >> ~/.bashrc && eval \"$($(brew --prefix)/bin/brew shellenv)\"",
-  "postStartCommand": "brew install protobuf@3.21 && go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28.1 && go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2.0"
+  "initializeCommand": "curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v3.21.11/protoc-3.21.11-linux-x86_64.zip && unzip protoc-3.21.11-linux-x86_64.zip -d /usr/local && rm protoc-3.21.11-linux-x86_64.zip",
+  "postStartCommand": "go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28.1 && go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2.0"
 }
