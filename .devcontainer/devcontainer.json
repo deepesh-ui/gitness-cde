@@ -1,44 +1,53 @@
 {
-  "name": "Harness Open Source Development",
-  "image": "golang:1.20",
-  "features": {
-    "ghcr.io/devcontainers/features/node:1": {
-      "version": "lts"
-    }
-  },
+  "name": "Harness Open Source Dev Environment",
+  "dockerFile": "Dockerfile",
+  "context": ".",
   "settings": {
-    "terminal.integrated.defaultProfile.linux": "/bin/bash"
+    "terminal.integrated.shell.linux": "/bin/bash"
   },
-  "postCreateCommand": "make dep && make tools && pushd web && yarn install && popd",
   "extensions": [
-    "ms-vscode.go",
+    "golang.Go",
+    "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "dbaeumer.vscode-eslint"
+    "eamodio.gitlens"
   ],
-  "customizations": {
-    "vscode": {
-      "settings": {
-        "go.gopath": "/go",
-        "go.goroot": "/usr/local/go",
-        "go.toolsGopath": "/go/bin",
-        "go.useLanguageServer": true,
-        "editor.formatOnSave": true
-      },
-      "extensions": [
-        "golang.go",
-        "dbaeumer.vscode-eslint",
-        "esbenp.prettier-vscode"
-      ]
-    }
-  },
-  "containerEnv": {
-    "GOBIN": "/go/bin",
-    "PATH": "${containerEnv:PATH}:/go/bin"
+  "postCreateCommand": "make dep && make tools && pushd web && yarn install && yarn build && popd",
+  "remoteEnv": {
+    "GOPATH": "/go",
+    "GOBIN": "/go/bin"
   },
   "mounts": [
-    "source=${localWorkspaceFolder},target=/workspace,type=bind"
+    "source=${localWorkspaceFolder}/web,target=/workspace/web,type=bind"
   ],
-  "runArgs": ["--privileged"],
-  "initializeCommand": "curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v3.21.11/protoc-3.21.11-linux-x86_64.zip && unzip protoc-3.21.11-linux-x86_64.zip -d /usr/local && rm protoc-3.21.11-linux-x86_64.zip",
-  "postStartCommand": "go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28.1 && go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2.0"
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": {
+      "label": "Local Server",
+      "onAutoForward": "openPreview"
+    }
+  },
+  "workspaceFolder": "/workspace",
+  "customizations": {
+    "codespaces": {
+      "openFiles": [
+        "README.md"
+      ]
+    },
+    "vscode": {
+      "settings": {
+        "go.toolsGopath": "/go"
+      }
+    }
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/go:1": {
+      "version": "1.20"
+    },
+    "ghcr.io/devcontainers/features/yarn:1": {
+      "version": "stable"
+    }
+  }
 }
