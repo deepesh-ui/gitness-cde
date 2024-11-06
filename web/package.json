@@ -25,7 +25,7 @@
     "dev:ar": "NODE_ENV=development webpack serve --config src/ar/config/webpack.dev.js",
     "test": "jest src --silent",
     "test:watch": "jest --watch",
-    "build": "rm -rf dist && webpack --config config/webpack.prod.js",
+    "build": "sudo rm -rf dist && webpack --progress --config config/webpack.prod.js",
     "build:cde": "rm -rf dist && MODULE=cde webpack --config src/cde-gitness/config/webpack.prod.js",
     "build:ar": "rm -rf dist && webpack --config src/ar/config/webpack.prod.js",
     "lint": "eslint --rulesdir ./scripts/eslint-rules --ext .ts --ext .tsx src",

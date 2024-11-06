@@ -1,0 +1,38 @@
+{
+    "name": "Gitness Development Environment",
+    "build": {
+      "dockerfile": "Dockerfile",
+      "context": "."
+    },
+    "postCreateCommand": [
+      "sudo apt update && sudo apt install -y protobuf-compiler golang-go nodejs npm",
+      "go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28.1",
+      "go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2.0",
+      "sudo npm install --global yarn",
+      "make dep",
+      "make tools",
+      "pushd web && yarn install && yarn build && popd",
+      "make build"
+    ],
+    "runArgs": [
+      "--cap-add=SYS_PTRACE",
+      "--security-opt=seccomp=unconfined"
+    ],
+    "ports": [
+      {
+        "containerPort": 3000,
+        "label": "App Port",
+        "protocol": "tcp"
+      }
+    ],
+    "onCreateCommand": "./gitness server .local.env",
+    "extensions": [
+      "golang.Go",
+      "dbaeumer.vscode-eslint",
+      "esbenp.prettier-vscode"
+    ],
+    "settings": {
+      "terminal.integrated.shell.linux": "/bin/bash"
+    }
+  }
+  
