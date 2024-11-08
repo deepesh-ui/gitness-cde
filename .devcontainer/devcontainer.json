@@ -1,16 +1,7 @@
 {
     "name": "Gitness Development Environment",
     "image": "ghcr.io/deepeshk1204/gitnessbase:latest",
-    "postCreateCommand": [
-      "sudo apt update && sudo apt install -y protobuf-compiler golang-go nodejs npm",
-      "go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28.1",
-      "go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2.0",
-      "sudo npm install --global yarn",
-      "make dep",
-      "make tools",
-      "pushd web && yarn install && yarn build && popd",
-      "make build"
-    ],
+    "postCreateCommand": "./gitness server .local.env",
     "runArgs": [
       "--cap-add=SYS_PTRACE",
       "--security-opt=seccomp=unconfined"
@@ -22,7 +13,16 @@
         "protocol": "tcp"
       }
     ],
-    "onCreateCommand": "./gitness server .local.env",
+    "onCreateCommand": [
+      "sudo apt update && sudo apt install -y protobuf-compiler",
+      "go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28.1",
+      "go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2.0",
+      "sudo npm install --global yarn",
+      "make dep",
+      "make tools",
+      "pushd web && yarn install && yarn build && popd",
+      "make build"
+    ],
     "extensions": [
       "golang.Go",
       "dbaeumer.vscode-eslint",
