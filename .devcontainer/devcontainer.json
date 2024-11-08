@@ -1,9 +1,6 @@
 {
     "name": "Gitness Development Environment",
-    "build": {
-      "dockerfile": "Dockerfile",
-      "context": "."
-    },
+    "image": "ghcr.io/deepeshk1204/gitnessbase:latest",
     "postCreateCommand": [
       "sudo apt update && sudo apt install -y protobuf-compiler golang-go nodejs npm",
       "go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28.1",
