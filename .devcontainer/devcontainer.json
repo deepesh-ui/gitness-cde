@@ -4,14 +4,5 @@
     "ghcr.io/devcontainers/features/go:1": {},
     "ghcr.io/devcontainers/features/node:1": {},
     "ghcr.io/devcontainers-extra/features/protoc:1": {}
-  },
-  "postCreateCommand": [
-      "sudo apt update && sudo apt install -y protobuf-compiler",
-      "go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28.1",
-      "go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2.0",
-      "make dep",
-      "make tools",
-      "pushd web && yarn install && yarn build && popd",
-      "make build"
-    ]
+  }
 }
