@@ -1,7 +1,4 @@
 {
-    "name": "Gitness Development Environment",
-    "image": "mcr.microsoft.com/devcontainers/base:dev-ubuntu-24.04",
-    "postCreateCommand": "bash setup.sh && make dep && make tools && cd web && yarn install && yarn build && cd .. && make build",
-    "postStartCommand": "./gitness server .local.env"
-  }
-  
+  "name": "Gitness Development Environment",
+  "image": "mcr.microsoft.com/devcontainers/base:dev-ubuntu-24.04"
+}
