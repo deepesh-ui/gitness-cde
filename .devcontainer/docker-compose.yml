@@ -6,11 +6,11 @@ services:
     container_name: harness-core-ui
     volumes:
       - ./harness-core-ui:/workspace/harness-core-ui  # Bind mount for harness-core-ui
-    working_dir: /workspace/harness-core-ui
+    working_dir: /workspaces/workspace/harness-core-ui
     command: >
       /bin/bash -c "
-      if [ ! -d /workspace/harness-core-ui ]; then
-        git clone https://github.com/harness/harness-core-ui /workspace/harness-core-ui;
+      if [ ! -d /workspaces/harness-core-ui ]; then
+        git clone https://github.com/harness/harness-core-ui /workspaces/workspace/harness-core-ui;
       fi
       yarn install && yarn dev
       "
@@ -20,11 +20,11 @@ services:
     container_name: cde-ui
     volumes:
       - ./gitness-cde:/workspace/gitness-cde  # Bind mount for gitness-cde
-    working_dir: /workspace/gitness-cde
+    working_dir: /workspaces/workspace/gitness-cde
     command: >
       /bin/bash -c "
-      if [ ! -d /workspace/gitness-cde ]; then
-        git clone https://github.com/deepesh-ui/gitness-cde /workspace/gitness-cde;
+      if [ ! -d /workspaces/gitness-cde ]; then
+        git clone https://github.com/deepesh-ui/gitness-cde /workspaces/workspace/gitness-cde;
       fi
       cd web && yarn install && yarn dev:cde
       "
