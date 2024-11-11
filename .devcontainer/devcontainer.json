@@ -1,6 +1,6 @@
 {
     "name": "Gitness Development Environment",
     "image": "mcr.microsoft.com/devcontainers/base:dev-ubuntu-24.04",
-    "onCreateCommand": "bash setup.sh && make dep && make tools && cd web && yarn install && yarn build && cd .. && make build"
+    "postCreateCommand": "bash setup.sh && make dep && make tools && cd web && yarn install && yarn build && cd .. && make build"
 }
   
