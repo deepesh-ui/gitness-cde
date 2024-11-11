@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  node-service:
+    image: node:16  # Base image for the Node.js service
+    container_name: harness-core-ui
+    volumes:
+      - ./harness-core-ui:/workspace
+    working_dir: /workspace
+    command: >
+      /bin/bash -c "
+      if [ ! -d harness-core-ui ]; then
+        git clone https://github.com/harness/harness-core-ui /workspace;
+      fi
+      yarn install && yarn dev
+      "
+
+  go-service:
+    image: node:16 # Base image for the Go service
+    container_name: cde-ui
+    volumes:
+      - ./gitness-cde:/workspace
+    working_dir: /workspace
+    command: >
+      /bin/bash -c "
+      if [ ! -d gitness-cde ]; then
+        git clone https://github.com/deepesh-ui/gitness-cde /workspace;
+      fi
+      cde web && yarn install && yarn dev:cde
+      "
