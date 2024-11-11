@@ -26,5 +26,5 @@ services:
       if [ ! -d gitness-cde ]; then
         git clone https://github.com/deepesh-ui/gitness-cde /workspace;
       fi
-      cde web && yarn install && yarn dev:cde
+      cd web && yarn install && yarn dev:cde
       "
