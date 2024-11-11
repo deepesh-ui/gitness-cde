@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  node-service:
+  harness-core-ui:
     image: node:16  # Base image for the Node.js service
     container_name: harness-core-ui
     volumes:
@@ -15,7 +15,7 @@ services:
       yarn install && yarn dev
       "
 
-  go-service:
+  cde-ui:
     image: node:16 # Base image for the Go service
     container_name: cde-ui
     volumes:
