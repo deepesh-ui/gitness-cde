@@ -1,7 +1,0 @@
-{
-  "name": "Multi-Container Dev Environment",
-  "dockerComposeFile": "docker-compose.yml",
-  "service": "cde-ui",
-  "workspaceFolder": "/workspace/gitness-cde",
-  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace/gitness-cde,type=bind"
-}
