@@ -1,13 +1,14 @@
 {
   "name": "Multi-Container Dev Environment",
-  "dockerComposeFile": ".devcontainer/docker-compose.yml",
+  "dockerComposeFile": [
+    ".devcontainer/docker-compose.yml"
+  ],
   "service": "cde-ui",
-  "workspaceFolder": "/workspace/gitness-cde",
-  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+  "workspaceFolder": "/workspace",
   "settings": {
     "terminal.integrated.shell.linux": "/bin/bash"
   },
-  "postCreateCommand": "cd /workspace/harness-core-ui && yarn install",
+  "postCreateCommand": "cd /workspace/harness-core-ui && yarn install || true",
   "extensions": [
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode"
