@@ -2,29 +2,29 @@ version: '3'
 
 services:
   harness-core-ui:
-    image: node:16  # Base image for the Node.js service
+    image: node:16
     container_name: harness-core-ui
     volumes:
-      - ./harness-core-ui:/workspaces/harness-core-ui  # Bind mount for harness-core-ui
-    working_dir: /workspaces/harness-core-ui
+      - ${localWorkspaceFolder}/harness-core-ui:/workspace/harness-core-ui
+    working_dir: /workspace/harness-core-ui
     command: >
       /bin/bash -c "
-      if [ ! -d /workspaces/harness-core-ui ]; then
-        git clone https://github.com/harness/harness-core-ui /workspaces/harness-core-ui;
+      if [ ! -d /workspace/harness-core-ui/.git ]; then
+        git clone https://github.com/harness/harness-core-ui /workspace/harness-core-ui;
       fi
       yarn install && yarn dev
       "
 
   cde-ui:
-    image: node:16  # Base image for the CDE service
+    image: node:16
     container_name: cde-ui
     volumes:
-      - ./gitness-cde:/workspaces/gitness-cde  # Bind mount for gitness-cde
-    working_dir: /workspaces/gitness-cde
+      - ${localWorkspaceFolder}/gitness-cde:/workspace/gitness-cde
+    working_dir: /workspace/gitness-cde
     command: >
       /bin/bash -c "
-      if [ ! -d /workspaces/gitness-cde ]; then
-        git clone https://github.com/deepesh-ui/gitness-cde /workspaces/gitness-cde;
+      if [ ! -d /workspace/gitness-cde/.git ]; then
+        git clone https://github.com/deepesh-ui/gitness-cde /workspace/gitness-cde;
       fi
       cd web && yarn install && yarn dev:cde
       "
