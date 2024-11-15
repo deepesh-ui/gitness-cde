@@ -1,4 +1,4 @@
 {
-	"image": "mcr.microsoft.com/devcontainers/base:dev-ubuntu-24.04",
-	"postCreateCommand": "sudo apt update && sudo apt install nodejs && sudo apt install npm && sudo npm install --global yarn"
-  }
+  "image": "mcr.microsoft.com/devcontainers/base:dev-ubuntu-24.04",
+  "postStartCommand": "sudo apt update && sudo apt install nodejs && sudo apt install npm && sudo npm install --global yarn"
+}
