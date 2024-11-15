@@ -1,4 +1,7 @@
 {
   "image": "mcr.microsoft.com/devcontainers/base:dev-ubuntu-24.04",
-  "postStartCommand": "sudo apt update && sudo apt install nodejs && sudo apt install npm && sudo npm install --global yarn"
+  "containerEnv": {
+    "DEBIAN_FRONTEND": "noninteractive"
+  },
+  "postStartCommand": "sudo apt update && sudo apt install  -y nodejs && sudo apt install  -y npm && sudo npm install --global yarn"
 }
